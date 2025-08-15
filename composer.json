@@ -1,0 +1,29 @@
+{
+  "name": "banguncode/php-after",
+  "description": "A simple PHP library for BPJS Kesehatan fingerprint integration.",
+  "type": "library",
+  "license": "MIT",
+  "version": "1.0.0",
+  "keywords": [
+    "fingerprint",
+    "after",
+    "bridging",
+    "bpjs"
+  ],
+  "authors": [
+    {
+      "name": "Rum Haidar Fauzan",
+      "email": "rum.haidar@hotmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5",
+    "ext-curl": "*",
+    "ext-openssl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "PHPAfter\\": "src/"
+    }
+  }
+}
