@@ -17,7 +17,7 @@ you **must** use the [HID Authentication Device Client SDK](https://digitalperso
 and completely uninstall any currently installed SDK before installation.  
 If this is not done, the integration will **not** work.  
 
-For usage examples, see: [HID Global DigitalPersona Sample Web](https://github.com/hidglobal/digitalpersona-sample-web)
+For usage examples, see: [HID Global DigitalPersona Sample Web](https://github.com/hidglobal/digitalpersona-fingerprint)
 
 ## Installation
 
