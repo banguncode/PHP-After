@@ -255,9 +255,14 @@ class Fingerprint
         ];
     }
 
+    private function base64urlToBase64($data) {
+        $data = preg_replace(['/-/', '/_/'], ['+', '/'], $data);
+        return $data . str_repeat('=', (4 - strlen($data) % 4) % 4);
+    }
+
     private function validBase64($base64)
     {
-        return base64_decode($base64, true) !== false;
+        return base64_decode(base64urlToBase64($base64), true) !== false;
     }
 
     private function validJpeg($base64)
