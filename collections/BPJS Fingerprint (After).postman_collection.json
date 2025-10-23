@@ -1,0 +1,228 @@
+{
+	"info": {
+		"name": "BPJS Fingerprint (After)",
+		"description": "This collection contains endpoints for BPJS fingerprint operations, including authentication, verification, registration, deletion, and retrieving delete reasons. Use this collection to interact with BPJS fingerprint services efficiently and securely.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [""],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set('token', pm.response.json().response.tokenLogin);"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/finger-rest/v2/user/login",
+					"host": ["{{base_url}}"],
+					"path": ["finger-rest", "v2", "user", "login"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"keyword\": \"1234567890123456\",\r\n    \"jnsFilter\": \"nik\",\r\n    \"finger\": \"AOh...\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/finger-rest/v1/finger/verify",
+					"host": ["{{base_url}}"],
+					"path": ["finger-rest", "v1", "finger", "verify"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Reason",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/finger-rest/v1/finger/alasanHapus",
+					"host": ["{{base_url}}"],
+					"path": ["finger-rest", "v1", "finger", "alasanHapus"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "{{base_url}}/finger-rest/v1/finger/delpeserta/0000012345678/02",
+					"host": ["{{base_url}}"],
+					"path": [
+						"finger-rest",
+						"v1",
+						"finger",
+						"delpeserta",
+						"0000012345678",
+						"02"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nokapst\": \"0000012345678\",\r\n  \"finger\": [\r\n    {\r\n      \"finger\": \"APi...\",\r\n      \"index\": 1,\r\n      \"imgStr\": \"/9j/...\"\r\n    },\r\n    {\r\n      \"finger\": \"APi...\",\r\n      \"index\": 6,\r\n      \"imgStr\": \"/9j/...\"\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/finger-rest/v1/finger/addpeserta",
+					"host": ["{{base_url}}"],
+					"path": ["finger-rest", "v1", "finger", "addpeserta"]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"requests": {},
+				"exec": [
+					"const baseUrl = pm.collectionVariables.get(\"base_url\") || pm.environment.get(\"base_url\");",
+					"const url = new URL(baseUrl);",
+					"const host = url.hostname;",
+					"",
+					"pm.request.headers.add({",
+					"    key: \"Host\",",
+					"    value: host",
+					"});",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [""]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": ""
+		},
+		{
+			"key": "username",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		}
+	]
+}
