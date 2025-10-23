@@ -88,11 +88,11 @@ class Fingerprint
             return ['message' => 'Nomor peserta tidak valid', 'status' => StatusCode::INVALID_PARTICIPANT];
         }
 
-        if (!$this->validBase64($imgStr) || !$this->validJpeg($imgStr)) {
+        if (!$this->validBase64($imgStr) || !$this->validImage($imgStr)) {
             return ['message' => 'Format gambar sidik jari tidak valid', 'status' => StatusCode::INVALID_IMAGE];
         }
 
-        if (!$this->validBase64($finger2) || !$this->validJpeg($imgStr2)) {
+        if (!$this->validBase64($finger2) || !$this->validImage($imgStr2)) {
             return ['message' => 'Format sidik jari tidak valid', 'status' => StatusCode::INVALID_MINUTIAE];
         }
 
@@ -265,7 +265,7 @@ class Fingerprint
         return base64_decode($this->base64urlToBase64($base64), true) !== false;
     }
 
-    private function validJpeg($base64)
+    private function validImage($base64)
     {
         if (strpos($base64, 'data:image/') === 0) {
             $base64 = preg_replace('#^data:image/\w+;base64,#i', '', $base64);
