@@ -262,7 +262,7 @@ class Fingerprint
 
     private function validBase64($base64)
     {
-        return base64_decode(base64urlToBase64($base64), true) !== false;
+        return base64_decode($this->base64urlToBase64($base64), true) !== false;
     }
 
     private function validJpeg($base64)
