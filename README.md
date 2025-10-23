@@ -140,7 +140,7 @@ $fp->init('VCLAIM_USERNAME', 'VCLAIM_PASSWORD');
 ```php
 $result = $fp->verify(
     '327102xxxxxxxxxx',  // NIK (16 digits) or participant number (13 digits)
-    $fingerBase64        // Fingerprint minutiae (Base64)
+    'AOh...'             // Fingerprint minutiae (Base64)
 );
 
 print_r($result);
@@ -150,10 +150,10 @@ print_r($result);
 ```php
 $result = $fp->register(
     '0001234567890',     // Participant number (13 digits)
-    $fingerRightBase64,  // Right fingerprint minutiae (Base64)
-    $imgRightBase64,     // Right fingerprint image (Base64 JPEG/PNG)
-    $fingerLeftBase64,   // Left fingerprint minutiae (Base64)
-    $imgLeftBase64       // Left fingerprint image (Base64 JPEG/PNG)
+    'APi...',            // Right fingerprint minutiae (Base64)
+    'iVBOR...',          // Right fingerprint image (Base64 JPEG/PNG)
+    'APi...',            // Left fingerprint minutiae (Base64)
+    'iVBOR...'           // Left fingerprint image (Base64 JPEG/PNG)
 );
 
 print_r($result);
@@ -162,8 +162,8 @@ print_r($result);
 4. Reset Biometrics
 ```php
 $result = $fp->reset(
-    '0001234567890', // Participant number
-    '02'             // Reason (01 = Re-enrollment, 02 = Fingerprint damaged/disabled)
+    '0001234567890',     // Participant number
+    '02'                 // Reason (01 = Re-enrollment, 02 = Fingerprint damaged/disabled)
 );
 
 print_r($result);
