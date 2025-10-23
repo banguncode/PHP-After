@@ -169,6 +169,9 @@ $result = $fp->reset(
 print_r($result);
 ```
 
+## Appendix
+For the Postman collection, please check it [HERE](https://github.com/banguncode/PHP-After/blob/main/collections/BPJS%20Fingerprint%20(After).postman_collection.json)
+
 ## Disclaimer
 **This library is not affiliated with BPJS Kesehatan.
 You must be an authorized user with valid credentials to use the BPJS Kesehatan API, and you are responsible for complying with all applicable regulations.**
