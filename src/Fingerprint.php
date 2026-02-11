@@ -43,31 +43,52 @@ class Fingerprint
      */
     private function auth()
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (
+            isset($_SESSION['BPJS_FINGERPRINT_TOKEN']) &&
+            isset($_SESSION['BPJS_FINGERPRINT_TOKEN_DATE']) &&
+            $_SESSION['BPJS_FINGERPRINT_TOKEN_DATE'] === date('Y-m-d')
+        ) {
+            return $_SESSION['BPJS_FINGERPRINT_TOKEN'];
+        }
+
         $url = $this->baseUrl . '/finger-rest/v2/user/login';
-        $data = [
+        $data = array(
             'username' => $this->username,
             'password' => $this->password,
-        ];
+        );
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Accept: application/json',
             'Content-Type: application/json; charset=utf-8',
             'Connection: keep-alive'
-        ]);
+        ));
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
         $response = curl_exec($ch);
         $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
         if ($httpStatus == 200) {
             $response = json_decode($response, true);
-            return isset($response['response']['tokenLogin']) ? $response['response']['tokenLogin'] : null;
+
+            if (isset($response['response']['tokenLogin'])) {
+                $_SESSION['BPJS_FINGERPRINT_TOKEN'] = $response['response']['tokenLogin'];
+                $_SESSION['BPJS_FINGERPRINT_TOKEN_DATE'] = date('Y-m-d');
+
+                return $response['response']['tokenLogin'];
+            }
         }
+
         return null;
     }
+
 
     /**
      * Register biometrics
