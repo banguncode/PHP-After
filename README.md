@@ -57,7 +57,7 @@ For usage examples:
         typeof event.samples === "string" ?
         JSON.parse(event.samples) :
         event.samples;
-      const sample = samples[0]?.Data || sample[0];
+      const sample = samples[0]?.Data || samples[0];
 
       const data = sample.replace(/-/g, '+').replace(/_/g, '/');
 
